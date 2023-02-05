@@ -67,13 +67,12 @@ int consultar()
 	char cpf[40];
 	char conteudo[200];
 	
-	printf("\tDigite o CPF a ser consultado: ");
+	printf("\tDigite o CPF a ser consultado: "); //recebendo o cpf a ser consultado
 	scanf("%s", cpf);
 	printf("\n");
 	
 	FILE *file;
 	file = fopen(cpf, "r"); //cria o arquivo e o "r" (significa ler)
-	fclose(file);
 	
 	if(file == NULL)
 	{
@@ -109,83 +108,105 @@ int deletar()
 	
 	if(cpf != NULL)
 	{
-		printf("\n Confirma deletar o cpf do usuário?\n\n");
-		printf("Digite *1* para SIM e *2* para NÃO.\n");
-		printf("Opção: ");
-		scanf("%d", &confirmaDeletar); 
 		
-		
-		switch(confirmaDeletar)
+		if(cpf != NULL)
 		{
-			case 1:
-			remove(cpf);
-			printf("\nCPF do usuário excluído!\n\n");
-			break;
 			
-			case 2:
-			printf("\nCPF não excluído!\n\n");
-			break;
+			printf("\n Confirma deletar o cpf do usuário?\n\n");
+			printf("Digite *1* para SIM e *2* para NÃO.\n");
+			printf("Opção: ");
+			scanf("%d", &confirmaDeletar); 
+		
+		
+			switch(confirmaDeletar)
+			{
+				case 1:
+				remove(cpf);
+				printf("\nCPF do usuário excluído!\n\n");
+				break;
 			
-			default:
-			printf("Opção inválida!");
-			break;
+				case 2:
+				printf("\nCPF não excluído!\n\n");
+				break;
+			
+				default:
+				printf("Opção inválida!");
+				break;
+			}
 		}
 	}
 	else
 	{
-		printf("Usuário iválido");
+		printf("\nUsuário iválido\n\n");
 	}
 	system("PAUSE");
 }
 
 int main()
 {
+	setlocale(LC_ALL, "Portuguese"); //definindo a linguagem
+	
 	int opcao=0; //definindo variáveis
 	int laco=1;
+	char senhadigitada[10]="a";
+	int comparacao;
 	
-	for(laco=1;laco=1;)
+	printf("*** Cartório da EBAC *** \n\n");
+	printf("Login de administrador! \n\n Digite a sua senha: ");
+	scanf("%s", senhadigitada);
+	
+	comparacao = strcmp(senhadigitada, "admin"); //Comparando a string, comparando se o que o usuário colocou na SCANF o comando certo
+	
+	if(comparacao == 0)
 	{
 	
-		system("cls");
-		
-		setlocale(LC_ALL, "Portuguese"); //definindo a linguagem
-	
-		printf("*** Cartório da EBAC *** \n\n"); //inicio do menu
-		printf("\t-Escolha a opção no menu: \n\n");
-		printf("\t| Opção 1 - Registrar nomes |\n");
-		printf("\t| Opção 2 - Consultar nomes |\n");
-		printf("\t| Opção 3 - Deletar nomes   |\n");
-		printf("\t| Opção 4 - Sair do sistema |\n\n");
-		printf("Opção:"); //fim do menu
-	
-		scanf("%d", &opcao); //escanear o que o usuário selecionou
-	
-		system("cls"); //limpar a tela do usuário
-		
-		
-		switch(opcao) //inicio da tomada de decisão do menu
+		for(laco=1;laco=1;) //looping
 		{
-			case 1:
-			registrar(); //Chamada de funções
-			break;
-			
-			case 2:
-			consultar();
-			break;
-			
-			case 3:
-			deletar();
-			break;
-			
-			case 4:
-			printf("Obrigado por utilizar o sistema!\n");
-			return 0;
-			break;
+	
+			system("cls"); // limpa a tela do usuário
 		
-			default:
-			printf("\t * Essa opção não está disponivel!\n\n\n");
-			system("PAUSE");
-			break; //fim da tomada de decisão do menu
+			setlocale(LC_ALL, "Portuguese"); //definindo a linguagem
+	
+			printf("*** Cartório da EBAC *** \n\n"); //inicio do menu
+			printf("\t-Escolha a opção no menu: \n\n");
+			printf("\t| Opção 1 - Registrar nomes |\n");
+			printf("\t| Opção 2 - Consultar nomes |\n");
+			printf("\t| Opção 3 - Deletar nomes   |\n");
+			printf("\t| Opção 4 - Sair do sistema |\n\n");
+			printf("Opção:"); //fim do menu
+	
+			scanf("%d", &opcao); //escanear o que o usuário selecionou
+	
+			system("cls"); //limpar a tela do usuário
+		
+		
+			switch(opcao) //inicio da tomada de decisão do menu
+			{
+				case 1:
+				registrar(); //Chamada de funções
+				break;
+			
+				case 2:
+				consultar();
+				break;
+			
+				case 3:
+				deletar();
+				break;
+			
+				case 4:
+				printf("\n\n\tOBRIGADO POR UTILIZAR O SISTEMA!\n\n");
+				return 0; //vai quebrar o quadro, vai sair do sistema e fechar
+				break;
+		
+				default:
+				printf("\t * Essa opção não está disponivel!\n\n\n");
+				system("PAUSE");
+				break; //fim da tomada de decisão do menu
+			}
 		}    
 	}
+	
+	else
+		printf("\n\n\tSENHA INCORRETA!\n\n");
 }
